@@ -1,10 +1,8 @@
 package com.videorental;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 class Customer {
     private String name;
@@ -12,7 +10,9 @@ class Customer {
 
     public Customer(String name) {
         this.name = name;
-    };
+    }
+
+    ;
 
     public void addRental(Rental rental) {
         rentals.add(rental);
@@ -20,7 +20,9 @@ class Customer {
 
     public String getName() {
         return name;
-    };
+    }
+
+    ;
 
     public String statement() {
         double totalAmount = 0;
@@ -28,7 +30,7 @@ class Customer {
         Iterator<Rental> iterator = rentals.iterator();
         String result = "Rental Record for " + getName() + "\n";
 
-        while ( iterator.hasNext() ) {
+        while (iterator.hasNext()) {
             double thisAmount = 0;
             Rental each = (Rental) iterator.next();
             // determine amounts for each line
@@ -57,7 +59,7 @@ class Customer {
             if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1)
                 frequentRenterPoints++;
             // show figures
-            result += "\t" +  String.valueOf(thisAmount) + "(" + each.getMovie().getTitle() + ")" + "\n";
+            result += "\t" + String.valueOf(thisAmount) + "(" + each.getMovie().getTitle() + ")" + "\n";
 
             totalAmount += thisAmount;
         }
