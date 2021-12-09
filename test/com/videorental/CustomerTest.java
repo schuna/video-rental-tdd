@@ -22,7 +22,7 @@ public class CustomerTest {
         Rental rental = new Rental(movie, 10);
         Customer customer = new Customer("");
         //action
-        String result = customer.statement();
+        String result = customer.getRentalReport();
         //asert
         assertEquals(expectedResult, result);
     }
@@ -43,7 +43,7 @@ public class CustomerTest {
 
         Customer customer = getCustomer(movieName, priceCode, dayRental, userName);
         //action
-        String result = customer.statement();
+        String result = customer.getRentalReport();
         //asert
         assertEquals(expectedResult, result);
     }
@@ -64,7 +64,7 @@ public class CustomerTest {
 
         Customer customer = getCustomer(movieName, REGULAR_CODE, dayRental, userName);
         //action
-        String result = customer.statement();
+        String result = customer.getRentalReport();
         //asert
         assertEquals(expectedResult, result);
     }
@@ -84,7 +84,7 @@ public class CustomerTest {
 
         Customer customer = getCustomer(movieName, CHILDREN_CODE, dayRental, userName);
         //action
-        String result = customer.statement();
+        String result = customer.getRentalReport();
         //asert
         assertEquals(expectedResult, result);
     }
@@ -104,7 +104,7 @@ public class CustomerTest {
 
         Customer customer = getCustomer(movieName, CHILDREN_CODE, dayRental, userName);
         //action
-        String result = customer.statement();
+        String result = customer.getRentalReport();
         //asert
         assertEquals(expectedResult, result);
     }
@@ -124,7 +124,7 @@ public class CustomerTest {
 
         Customer customer = getCustomer(movieName, NEW_RELEASE_CODE, dayRental, userName);
         //action
-        String result = customer.statement();
+        String result = customer.getRentalReport();
         //asert
         assertEquals(expectedResult, result);
     }
@@ -144,7 +144,7 @@ public class CustomerTest {
 
         Customer customer = getCustomer(movieName, NEW_RELEASE_CODE, dayRental, userName);
         //action
-        String result = customer.statement();
+        String result = customer.getRentalReport();
         //asert
         assertEquals(expectedResult, result);
     }
@@ -164,7 +164,7 @@ public class CustomerTest {
 
         Customer customer = getCustomer(movieName, 4, dayRental, userName);
         //action
-        String result = customer.statement();
+        String result = customer.getRentalReport();
         //asert
         assertEquals(expectedResult, result);
     }
