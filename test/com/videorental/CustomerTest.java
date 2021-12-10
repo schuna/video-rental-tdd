@@ -39,13 +39,13 @@ public class CustomerTest {
         int dayRental = 1;
         int priceCode = REGULAR_CODE;
 
-        String expectedResult = getExpectedResultString(userName, price, movieName, amountOwed, frequentPoint);
+        ExpectedResult expectedResult = new ExpectedResult(userName, price, movieName, amountOwed, frequentPoint);
 
         Customer customer = getCustomer(new RentalInfo(movieName, priceCode, dayRental, userName));
         //action
         String result = customer.getRentalReport();
         //asert
-        assertEquals(expectedResult, result);
+        assertEquals(getExpectedResultString(expectedResult), result);
     }
 
 
@@ -60,13 +60,13 @@ public class CustomerTest {
         int frequentPoint = 1;
         int dayRental = 10;
 
-        String expectedResult = getExpectedResultString(userName, price, movieName, amountOwed, frequentPoint);
+        ExpectedResult expectedResult = new ExpectedResult(userName, price, movieName, amountOwed, frequentPoint);
 
         Customer customer = getCustomer(new RentalInfo(movieName, REGULAR_CODE, dayRental, userName));
         //action
         String result = customer.getRentalReport();
         //asert
-        assertEquals(expectedResult, result);
+        assertEquals(getExpectedResultString(expectedResult), result);
     }
 
     // 어린이 비디오 렌탈
@@ -80,13 +80,13 @@ public class CustomerTest {
         int frequentPoint = 1;
         int dayRental = 1;
 
-        String expectedResult = getExpectedResultString(userName, price, movieName, amountOwed, frequentPoint);
+        ExpectedResult expectedResult = new ExpectedResult(userName, price, movieName, amountOwed, frequentPoint);
 
         Customer customer = getCustomer(new RentalInfo(movieName, CHILDREN_CODE, dayRental, userName));
         //action
         String result = customer.getRentalReport();
         //asert
-        assertEquals(expectedResult, result);
+        assertEquals(getExpectedResultString(expectedResult), result);
     }
 
     // 어린이 비디오 렌탈
@@ -100,13 +100,13 @@ public class CustomerTest {
         int frequentPoint = 1;
         int dayRental = 10;
 
-        String expectedResult = getExpectedResultString(userName, price, movieName, amountOwed, frequentPoint);
+        ExpectedResult expectedResult = new ExpectedResult(userName, price, movieName, amountOwed, frequentPoint);
 
         Customer customer = getCustomer(new RentalInfo(movieName, CHILDREN_CODE, dayRental, userName));
         //action
         String result = customer.getRentalReport();
         //asert
-        assertEquals(expectedResult, result);
+        assertEquals(getExpectedResultString(expectedResult), result);
     }
 
     // 신작 비디오 렌탈
@@ -120,13 +120,13 @@ public class CustomerTest {
         int frequentPoint = 2;
         int dayRental = 10;
 
-        String expectedResult = getExpectedResultString(userName, price, movieName, amountOwed, frequentPoint);
+        ExpectedResult expectedResult = new ExpectedResult(userName, price, movieName, amountOwed, frequentPoint);
 
         Customer customer = getCustomer(new RentalInfo(movieName, NEW_RELEASE_CODE, dayRental, userName));
         //action
         String result = customer.getRentalReport();
         //asert
-        assertEquals(expectedResult, result);
+        assertEquals(getExpectedResultString(expectedResult), result);
     }
 
     // 신작 비디오 렌탈
@@ -140,13 +140,13 @@ public class CustomerTest {
         int frequentPoint = 1;
         int dayRental = 0;
 
-        String expectedResult = getExpectedResultString(userName, price, movieName, amountOwed, frequentPoint);
+        ExpectedResult expectedResult = new ExpectedResult(userName, price, movieName, amountOwed, frequentPoint);
 
         Customer customer = getCustomer(new RentalInfo(movieName, NEW_RELEASE_CODE, dayRental, userName));
         //action
         String result = customer.getRentalReport();
         //asert
-        assertEquals(expectedResult, result);
+        assertEquals(getExpectedResultString(expectedResult), result);
     }
 
     // Price Code가 없는 경우
@@ -160,13 +160,13 @@ public class CustomerTest {
         int frequentPoint = 1;
         int dayRental = 1;
 
-        String expectedResult = getExpectedResultString(userName, price, movieName, amountOwed, frequentPoint);
+        ExpectedResult expectedResult = new ExpectedResult(userName, price, movieName, amountOwed, frequentPoint);
 
         Customer customer = getCustomer(new RentalInfo(movieName, 4, dayRental, userName));
         //action
         String result = customer.getRentalReport();
         //asert
-        assertEquals(expectedResult, result);
+        assertEquals(getExpectedResultString(expectedResult), result);
     }
 
     // getPriceCode
@@ -200,11 +200,11 @@ public class CustomerTest {
         return customer;
     }
 
-    private String getExpectedResultString(String userName, double price, String movieName, double amountOwed, int frequentPoint) {
-        String expectedResult = "Rental Record for " + userName + "\n" +
-                "\t" + price + "(" + movieName + ")\n" +
-                "Amount owed is " + amountOwed + "\n" +
-                "You earned " + frequentPoint + " frequent renter pointers";
+    private String getExpectedResultString(ExpectedResult expectedResult1) {
+        String expectedResult = "Rental Record for " + expectedResult1.getUserName() + "\n" +
+                "\t" + expectedResult1.getPrice() + "(" + expectedResult1.getMovieName() + ")\n" +
+                "Amount owed is " + expectedResult1.getAmountOwed() + "\n" +
+                "You earned " + expectedResult1.getFrequentPoint() + " frequent renter pointers";
         return expectedResult;
     }
 
