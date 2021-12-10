@@ -1,7 +1,6 @@
 package com.videorental;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 class Customer {
@@ -21,33 +20,36 @@ class Customer {
     }
 
     public String getRentalReport() {
-        return generateRentalReport(getTotalCharge(), getTotalFrequentRenterPoints());
+        return generateRentalReport();
     }
 
-    private String generateRentalReport(double totalAmount, int frequentRenterPoints) {
-        Iterator<Rental> iterator = rentals.iterator();
-
-        String result = "Rental Record for " + getName() + "\n";
-
-        while (iterator.hasNext()) {
-            double chargeAmount = 0;
-            Rental rental = (Rental) iterator.next();
-            // determine amounts for each line
-            chargeAmount = getChargeAmount(rental);
-            // show figures
-            result += "\t" + String.valueOf(chargeAmount) + "(" + rental.getMovie().getTitle() + ")" + "\n";
+    private String generateRentalReport() {
+        String result = rentalReportHeader();
+        for (Rental rental : rentals) {
+            result += rentalReportBody(rental);
         }
-
-
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter pointers";
+        result += rentalReportTail();        
         return result;
+    }
+
+    private String rentalReportBody(Rental rental) {
+        return "\t" + rental.getChargeAmount() + "(" + rental.getMovie().getTitle() + ")" + "\n";
+    }
+
+    private String rentalReportTail() {
+        String result = "Amount owed is " + getTotalCharge() + "\n";
+        result += "You earned " + getTotalFrequentRenterPoints() + " frequent renter pointers";
+        return result;
+    }
+
+    private String rentalReportHeader() {
+        return "Rental Record for " + getName() + "\n";
     }
 
     private double getTotalCharge() {
         double chargeAmount = 0.0;
         for (Rental rental : rentals) {
-            chargeAmount += getChargeAmount(rental);
+            chargeAmount += rental.getChargeAmount();
         }
         return chargeAmount;
     }
@@ -55,37 +57,9 @@ class Customer {
     private int getTotalFrequentRenterPoints() {
         int frequentRenterPoints = 0;
         for (Rental rental : rentals) {
-            frequentRenterPoints += getFrequentRenterPoints(rental);
+            frequentRenterPoints += rental.getFrequentRenterPoints();
         }
         return frequentRenterPoints;
     }
 
-    private int getFrequentRenterPoints(Rental rental) {
-        int frequentRenterPoints = 1;
-        if ((rental.getMovie().getPriceCode() == Movie.NEW_RELEASE) && rental.getDaysRented() > 1)
-            frequentRenterPoints++;
-        return frequentRenterPoints;
-    }
-
-    private double getChargeAmount(Rental rental) {
-        double chargeAmount = 0.0;
-        switch (rental.getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                chargeAmount += 2;
-                if (rental.getDaysRented() > 2)
-                    chargeAmount += (rental.getDaysRented() - 2) * 1.5;
-                break;
-
-            case Movie.NEW_RELEASE:
-                chargeAmount += rental.getDaysRented() * 3;
-                break;
-
-            case Movie.CHILDRENS:
-                chargeAmount += 1.5;
-                if (rental.getDaysRented() > 3)
-                    chargeAmount += (rental.getDaysRented() - 3) * 1.5;
-                break;
-        }
-        return chargeAmount;
-    }
 }

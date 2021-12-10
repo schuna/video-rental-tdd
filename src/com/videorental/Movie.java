@@ -25,5 +25,36 @@ public class Movie {
         return title;
     }
 
+    public double getCharge(int dayRented) {
+        double chargeAmount = 0.0;
+        switch (getPriceCode()) {
+            case Movie.REGULAR:
+                chargeAmount += 2;
+                if (dayRented > 2)
+                    chargeAmount += (dayRented - 2) * 1.5;
+                break;
+
+            case Movie.NEW_RELEASE:
+                chargeAmount += dayRented * 3;
+                break;
+
+            case Movie.CHILDRENS:
+                chargeAmount += 1.5;
+                if (dayRented > 3)
+                    chargeAmount += (dayRented - 3) * 1.5;
+                break;
+        }
+        return chargeAmount;
+    }
+
+    public int getFrequentRenterPoints(int daysRented) {
+        if (isNewRelease() && daysRented > 1) return 2;
+        else return 1;
+    }
+
+    private boolean isNewRelease() {
+        return getPriceCode() == Movie.NEW_RELEASE;
+    }
+
     ;
 }
