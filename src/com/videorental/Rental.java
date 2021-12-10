@@ -1,8 +1,8 @@
 package com.videorental;
 
 class Rental {
-    private Movie movie;
-    private int daysRented;
+    private final Movie movie;
+    private final int daysRented;
 
     public Rental(Movie movie, int daysRented) {
         this.movie = movie;
@@ -18,10 +18,10 @@ class Rental {
     }
 
     public double getChargeAmount() {
-        return getMovie().getCharge(getDaysRented());
+        return movie.getCharge(daysRented);
     }
 
     public int getFrequentRenterPoints() {
-        return getMovie().getFrequentRenterPoints(getDaysRented());
+        return movie.getFrequentRenterPoints(daysRented);
     }
 }
